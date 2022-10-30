@@ -11,20 +11,27 @@ class Card
         // завдяки ідентифікатору не буде виводитися два Console.Write
         byte identificator = 0;
 
-        // цикл який пробігається по числам аби перевірити чи число є просте
-        for (int i = 2; i <= prime - 1; i++)
+        if (prime < 0)
         {
-            // якщо знайдеться число, яке ділиться без остачі (окрім 1 та n), то воно не просте
-            if (prime % i == 0)
+            Console.WriteLine("Not prime");
+        }
+        else
+        {
+            // цикл який пробігається по числам аби перевірити чи число є просте
+            for (int i = 2; i <= prime - 1; i++)
             {
-                identificator = 1;
-                Console.WriteLine("Not prime");
-                break;
+                // якщо знайдеться число, яке ділиться без остачі (окрім 1 та n), то воно не просте
+                if (prime % i == 0)
+                {
+                    identificator = 1;
+                    Console.WriteLine("Not prime");
+                    break;
+                }
             }
         }
 
         // якщо ж не знайшлося, то число просте
-        if (identificator == 0) 
+        if (identificator == 0 && prime > 0) 
         {
             Console.WriteLine("Prime");
         }
