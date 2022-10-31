@@ -6,28 +6,48 @@ class Card
     static void Main(string[] args)
     {
         Console.WriteLine("Enter the x number: ");
-        int x = Convert.ToInt32(Console.ReadLine());
-        int xPow = x;
+        double x = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Enter the n number: ");
         int n = Convert.ToInt32(Console.ReadLine());
-        int nCounter = n;
 
-        for (int i = 1; i < nCounter; i++)
+        int xPow = n;
+        int nCounter = Math.Abs(n);
+
+        if (n == 0)
         {
-            x *= xPow;
-
-            if (i == nCounter - 1)
-            {
-                Console.WriteLine("x power x is: " + x);
-            }
+            Console.WriteLine("x power n is: 1");
+            Console.WriteLine("n factorial is: 1");
         }
-
-        for (int i = nCounter - 1; i > 0; i--)
+        else
         {
-            n *= i;
-            if (i == 1)
+            for (int i = 1; i < nCounter; i++)
             {
-                Console.WriteLine("n factorial is: " + n);
+                x *= xPow;
+
+                if (i == nCounter - 1)
+                {
+                    if (xPow < 0)
+                    {
+                        x = Math.Abs(1 / x);
+                    }
+                    Console.WriteLine("x power n is: " + x);
+                }
+            }
+
+            if (n >= 0)
+            {
+                for (int i = nCounter - 1; i > 0; i--)
+                {
+                    n *= i;
+                    if (i == 1)
+                    {
+                        Console.WriteLine("n factorial is: " + n);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Factorial not determined for negative numbers");
             }
         }
     }
