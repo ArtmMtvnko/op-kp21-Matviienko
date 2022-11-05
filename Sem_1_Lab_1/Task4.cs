@@ -17,6 +17,27 @@ class Pyramid
 
         Console.WriteLine("Enter a Sinus value (in degrees): ");
         int degrees = Convert.ToInt32(Console.ReadLine());
+
+        /*  // Prototype of check on right input
+        if (degrees.GetTypeCode() != TypeCode.Int32)
+        {
+            Console.WriteLine("Error of input");
+        }
+        */
+
+        if (degrees > 360 || degrees < -360)
+        {
+            degrees %= 360;
+            if (degrees > 180)
+            {
+                degrees -= 360;
+            }
+            if (degrees < -180)
+            {
+                degrees += 360;
+            }
+        }
+
         double x = degrees * (Math.PI / 180);
 
         double algebraicSum = 0.0;
