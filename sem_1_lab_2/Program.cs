@@ -6,19 +6,29 @@ using System.Numerics;
 using System.Xml;
 class Percolate
 {
-    static int[,] init(int n)
+    static void init(int n, int[] array)
     {
-        int[,] matrix = new int[n + 1, n + 1];
-
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i < n * n + 2; i++)
         {
-            for (int j = 1; j <= n; j++)
+            array[i] = i;
+        }
+    }
+
+    static void union(int x, int y, int[] array)
+    {
+        int componentX = array[x];
+        int componentY = array[y];
+        if (componentX == componentY)
+        {
+            return;
+        }
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == componentX)
             {
-                matrix[i, j] = 0;
+                array[i] = componentY;
             }
         }
-
-        return matrix;
     }
 
     static void open(int row, int column)
@@ -28,7 +38,7 @@ class Percolate
 
     static bool isOpen(int row, int column, int[] array, int n)
     {
-        if (array[(row + n * (row - 1)) + (column - row)] == 1)
+        if (array[n * (row - 1) + column] == 1)
         {
             return true;
         }
@@ -37,7 +47,7 @@ class Percolate
 
     static bool isFull(int row, int column, int[] array, int n)
     {
-        if (array[(row + n * (row - 1)) + (column - row)] == 2)
+        if (array[n * (row - 1) + column] == 2)
         {
             return true;
         }
@@ -54,29 +64,32 @@ class Percolate
         return false;
     }
 
-    static void print(int[,] matrix, int size)
+    static void print(int n, int[] array)
     {
-        for (int i = 1; i <= size; i++)
+        for (int i = 1; i <= n * n; i++)
         {
-            for (int j = 1; j <= size; j++)
+            if (array[i] == i)
             {
-                if (matrix[i, j] == 0)
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                }
-                if (matrix[i, j] == 1)
-                {
-                    Console.BackgroundColor = ConsoleColor.Green;
-                }
-                if (matrix[i, j] == 2)
-                {
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                }
-                Console.Write(matrix[i, j] + " ");
+                Console.Write(0 + " ");
             }
-            Console.WriteLine();
+            else
+            {
+                Console.Write(1 + " ");
+            }
+
+            if (i % n == 0)
+            {
+                Console.WriteLine();
+            }
         }
-        Console.BackgroundColor = ConsoleColor.Black;
+    }
+
+    static void test(int n, int[] array)
+    {
+        for (int i = 0; i < n * n + 2; i++)
+        {
+            Console.Write(array[i] + " ");
+        }
     }
     static void Main(string[] args)
     {
@@ -89,16 +102,31 @@ class Percolate
 
         Console.Write("Enter size of matrix: ");
         int n = Convert.ToInt32(Console.ReadLine());
-        int[,] matrix = init(n);
 
-        int size = n * n + 2;
-        int[] linerMatrix = new int[size];
+        //int size = n * n + 2;
+        int[] linerMatrix = new int[n * n + 2];
 
-        linerMatrix[0] = 2;
-        linerMatrix[size - 1] = 1;
-        for (int i = 0; i < size; i++)
+        init(n, linerMatrix);
+        for (int i = 0; i < n; i++)
         {
-            Console.Write(linerMatrix[i] + " ");
+            union(0, n, linerMatrix);
+        }
+
+        union(5, 10, linerMatrix);
+        union(3, 4, linerMatrix);
+        union(4, 7, linerMatrix);
+        union(11, 14, linerMatrix);
+        union(7, 14, linerMatrix);
+        union(11, 10, linerMatrix);
+        union(8, 15, linerMatrix);
+        union(10, 15, linerMatrix);
+
+        for (int i = 0; i < n; i++)
+        {
+            if (linerMatrix[0] == n * n - i)
+            {
+                union(n * n - i, n * n + 1, linerMatrix);
+            }
         }
 
 
@@ -109,7 +137,8 @@ class Percolate
         {
             try
             {
-                print(matrix, n);
+                print(n, linerMatrix);
+                test(n, linerMatrix);
 
                 Console.WriteLine("Choose the action with matrix: ");
                 Console.WriteLine("1 - open site");
@@ -132,13 +161,7 @@ class Percolate
                     byte row = Convert.ToByte(Console.ReadLine());
                     Console.Write("Column: ");
                     byte column = Convert.ToByte(Console.ReadLine());
-                    linerMatrix[(row + n * (row - 1)) + (column - row)] = 1;
-                    for (int i = 0; i < size; i++)
-                    {
-                        Console.Write(linerMatrix[i] + " ");
-                    }
-
-                    matrix[row, column] = 1;
+                    linerMatrix[n * (row - 1) + column] = 1;
                 }
 
                 if (num == 2)
