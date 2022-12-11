@@ -16,8 +16,8 @@ class Percolate
 
     static void union(int x, int y, int[] array)
     {
-        int componentX = array[x]; // -2
-        int componentY = array[y]; // 0
+        int componentX = array[x];
+        int componentY = array[y];
         if (componentX == componentY)
         {
             return;
@@ -47,26 +47,26 @@ class Percolate
         array[n * (row - 1) + column] *= (-1);
         if (column != n)
         {
-            if (array[n * (row - 1) + column + 1] < 0)
+            if (array[n * (row - 1) + column + 1] <= 0)
             {
                 union(n * (row - 1) + column, n * (row - 1) + column + 1, array);
             }
         }
         if (column != 1)
         {
-            if (array[n * (row - 1) + column - 1] < 0)
+            if (array[n * (row - 1) + column - 1] <= 0)
             {
                 union(n * (row - 1) + column, n * (row - 1) + column - 1, array);
             }
         }
         if (row != n)
         {
-            if (array[n * (row - 1) + column + n] < 0)
+            if (array[n * (row - 1) + column + n] <= 0)
             {
                 union(n * (row - 1) + column, n * (row - 1) + column + n, array);
             }
         }
-        if (array[n * (row - 1) + column - n] < 0)
+        if (array[n * (row - 1) + column - n] <= 0)
         {
             union(n * (row - 1) + column, n * (row - 1) + column - n, array);
         }
@@ -74,7 +74,7 @@ class Percolate
 
     static bool isOpen(int row, int column, int[] array, int n)
     {
-        if (array[n * (row - 1) + column] < 0)
+        if (array[n * (row - 1) + column] <= 0)
         {
             return true;
         }
@@ -170,8 +170,20 @@ class Percolate
          * output -> matrix with changes
          */
 
-        Console.Write("Enter size of matrix: ");
-        int n = Convert.ToInt32(Console.ReadLine());
+        int n;
+        while (true)
+        {
+            try
+            {
+                Console.Write("Enter size of matrix: ");
+                n = Math.Abs(Convert.ToInt32(Console.ReadLine()));
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Input Error");
+            }
+        }
         int[] linerMatrix = new int[n * n + 2];
 
         init(n, linerMatrix);
@@ -194,8 +206,9 @@ class Percolate
                 Console.WriteLine("3 - check is the site full?");
                 Console.WriteLine("4 - output numbers of open sites");
                 Console.WriteLine("5 - give a voltage");
-                Console.WriteLine("6 - check does the system percolates");
-                Console.WriteLine("7 - exit");
+                Console.WriteLine("6 - check does the system percolates?");
+                Console.WriteLine("7 - reset");
+                Console.WriteLine("8 - exit");
 
                 int num = Convert.ToInt32(Console.ReadLine());
                 if (num < 1 || num > 7)
@@ -253,6 +266,11 @@ class Percolate
 
                 if (num == 7)
                 {
+                    init(n, linerMatrix);
+                }
+
+                if (num == 8)
+                {
                     break;
                 }
             }
@@ -261,7 +279,7 @@ class Percolate
                 Console.WriteLine("Input Error");
             }
         }
-        Console.WriteLine("end");
+        Console.WriteLine("End");
     }
 
 
