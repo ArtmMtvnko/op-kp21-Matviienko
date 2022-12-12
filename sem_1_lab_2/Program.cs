@@ -22,7 +22,7 @@ class Percolate
         {
             return;
         }
-        for (int i = 0; i <= array.Length; i++)
+        for (int i = 0; i < array.Length; i++)
         {
             if (array[i] == componentX)
             {
@@ -66,9 +66,12 @@ class Percolate
                 union(n * (row - 1) + column, n * (row - 1) + column + n, array);
             }
         }
-        if (array[n * (row - 1) + column - n] <= 0)
+        if (row != 1)
         {
-            union(n * (row - 1) + column, n * (row - 1) + column - n, array);
+            if (array[n * (row - 1) + column - n] <= 0)
+            {
+                union(n * (row - 1) + column, n * (row - 1) + column - n, array);
+            }
         }
     }
 
@@ -169,6 +172,12 @@ class Percolate
          * input -> number of action
          * output -> matrix with changes
          */
+        // UNIT TESTS
+        // Console.WriteLine("Test init(): " + TestInit());
+        // Console.WriteLine("Test numberOfOpenSites(): " + TestNumberOfOpenSites());
+        // Console.WriteLine("Test isPercolates(): " + TestIsPercolates());
+        // Console.WriteLine("Test open(): " + TestOpen());
+        // Console.WriteLine("Test isFull(): " + TestIsFull());
 
         int n;
         while (true)
@@ -282,5 +291,182 @@ class Percolate
         Console.WriteLine("End");
     }
 
+    // ======== UNIT TESTS ========= UNIT TESTS ========= UNIT TESTS ========= UNIT TESTS =========
 
+    static bool TestInit()
+    {
+        int[] testArr1 = new int[27];
+
+        int expected1 = 0;  // i = 0
+        int expected2 = 1;  // i = 1
+        int expected3 = 2;  // i = 2
+        int expected4 = 3;  // i = 3
+        int expected5 = 4;  // i = 4
+        int expected6 = 5;  // i = 5
+
+        init(5, testArr1);
+
+        if (testArr1[0] != expected1)
+        {
+            return false;
+        }
+        if (testArr1[1] != expected2)
+        {
+            return false;
+        }
+        if (testArr1[2] != expected3)
+        {
+            return false;
+        }
+        if (testArr1[3] != expected4)
+        {
+            return false;
+        }
+        if (testArr1[4] != expected5)
+        {
+            return false;
+        }
+        if (testArr1[5] != expected6)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    static bool TestOpen() // Test isOpen() also
+    {
+        int[] testArr = new int[27]; // n = 5
+        init(5, testArr);
+
+        open(2, 2, testArr, 5);
+        open(4, 4, testArr, 5);
+        open(2, 3, testArr, 5);
+        open(1, 1, testArr, 5);
+
+        isOpen(2, 2, testArr, 5);
+        isOpen(4, 4, testArr, 5);
+        isOpen(2, 1, testArr, 5);
+        isOpen(3, 3, testArr, 5);
+
+        bool expected1 = true;
+        bool expected2 = true;
+        bool expected3 = false;
+        bool expected4 = false;
+        if (isOpen(2, 2, testArr, 5) != expected1)
+        {
+            return false;
+        }
+        if (isOpen(4, 4, testArr, 5) != expected2)
+        {
+            return false;
+        }
+        if (isOpen(2, 1, testArr, 5) != expected3)
+        {
+            return false;
+        }
+        if (isOpen(3, 3, testArr, 5) != expected4)
+        {
+            return false;
+        }
+        return true;
+    }
+    static bool TestIsFull()
+    {
+        int[] testArr = new int[27]; // n = 5
+        init(5, testArr);
+
+        open(1, 1, testArr, 5);
+        open(2, 1, testArr, 5);
+        open(3, 1, testArr, 5);
+        open(4, 1, testArr, 5);
+        open(5, 1, testArr, 5);
+
+        percolates(5, testArr);
+
+        bool expected1 = true;
+        bool expected2 = true;
+        bool expected3 = true;
+        bool expected4 = false;
+        bool expected5 = false;
+        bool expected6 = false;
+
+        bool action1 = isFull(1, 1, testArr, 5);
+        bool action2 = isFull(3, 1, testArr, 5);
+        bool action3 = isFull(5, 1, testArr, 5);
+        bool action4 = isFull(1, 2, testArr, 5);
+        bool action5 = isFull(2, 3, testArr, 5);
+        bool action6 = isFull(4, 4, testArr, 5);
+
+        if (action1 != expected1)
+        {
+            return false;
+        }
+        if (action2 != expected2)
+        {
+            return false;
+        }
+        if (action3 != expected3)
+        {
+            return false;
+        }
+        if (action4 != expected4)
+        {
+            return false;
+        }
+        if (action5 != expected5)
+        {
+            return false;
+        }
+        if (action6 != expected6)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    static bool TestNumberOfOpenSites()
+    {
+        int[] testArr = new int[27]; // n = 5
+        init(5, testArr);
+
+        int expected = 5;
+
+        open(1, 1, testArr, 5);
+        open(2, 2, testArr, 5);
+        open(2, 3, testArr, 5);
+        open(3, 3, testArr, 5);
+        open(3, 4, testArr, 5);
+        Console.WriteLine(numberOfOpenSites(5, testArr));
+
+        if (numberOfOpenSites(5, testArr) != expected)
+        {
+            return false;
+        }
+        return true;
+    }
+    static bool TestIsPercolates() // test percolates() also
+    {
+        int[] testArr = new int[27]; // n = 5
+        init(5, testArr);
+
+        open(1, 1, testArr, 5);
+        open(2, 1, testArr, 5);
+        open(3, 1, testArr, 5);
+        open(4, 1, testArr, 5);
+        open(5, 1, testArr, 5);
+
+        percolates(5, testArr);
+
+        if (isPercolates(5, testArr))
+        {
+            return true;
+        }
+        return false;
+    }
+    static bool TestPrint() // result on screen
+    {
+        return false;
+    }
+
+    // ======== UNIT TESTS END ========= UNIT TESTS END ========= UNIT TESTS END =========
 }
