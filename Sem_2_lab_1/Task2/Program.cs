@@ -35,13 +35,13 @@ class Class1
 
             sr.Close();
         }
-        catch (Exception e)
+        catch
         {
-            Console.WriteLine("Exception: " + e.Message);
+
         }
         finally
         {
-            Console.WriteLine("Executing finally block");
+
         }
     }
 
