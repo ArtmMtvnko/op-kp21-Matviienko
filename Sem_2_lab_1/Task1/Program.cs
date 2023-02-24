@@ -21,6 +21,19 @@ class Class1
             sw.WriteLine("Test Lab 1.");
 
             sw.Close();
+
+            StreamReader sr = new StreamReader(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\Text1.txt");
+
+            line = sr.ReadLine();
+
+            while (line != null)
+            {
+                Console.WriteLine(line);
+
+                line = sr.ReadLine();
+            }
+
+            sr.Close();
         }
         catch
         {
