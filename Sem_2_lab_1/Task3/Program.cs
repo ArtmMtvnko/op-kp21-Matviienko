@@ -5,6 +5,7 @@ using System.Text;
 
 class Class1
 {
+
     static bool CompareWords(string word1, string word2)
     {
         int size;
@@ -31,12 +32,52 @@ class Class1
         return word1.Length >= word2.Length;
     }
 
+    static bool TestCompareWords()
+    {
+        // Метод повинен повертати True якщо слово 2 стоїть за алфавітним
+        // порядком раніше за слово1
+
+        bool expected1 = false;  // "airplane" and "book"
+        bool expected2 = true;   // "celebrity" and "access"
+        bool expected3 = false;  // "weekend" and "window"
+        bool expected4 = true;   // "computer" and "commission"
+
+        bool actual1 = CompareWords("airplane", "book");
+        bool actual2 = CompareWords("celebrity", "access");
+        bool actual3 = CompareWords("weekend", "window");
+        bool actual4 = CompareWords("computer", "commission");
+
+        if (expected1 != actual1)
+        {
+            Console.WriteLine("TestCompareWords: Case1 was FAILED");
+            return false;
+        }
+        if (expected2 != actual2)
+        {
+            Console.WriteLine("TestCompareWords: Case2 was FAILED");
+            return false;
+        }
+        if (expected3 != actual3)
+        {
+            Console.WriteLine("TestCompareWords: Case3 was FAILED");
+            return false;
+        }
+        if (expected4 != actual4)
+        {
+            Console.WriteLine("TestCompareWords: Case4 was FAILED");
+            return false;
+        }
+        Console.WriteLine("All cases successful");
+        return true;
+    }
     static void Main(string[] args)
     {
         // Read the lines
         // Save strings in array
         // Sort array
         // Write words in new file
+
+        TestCompareWords();
 
         string line;
         try
@@ -57,18 +98,12 @@ class Class1
             }
 
 
-            foreach (string word in words)
-            {
-                Console.WriteLine(word);
-            }
-
-
             for (int i = 0; i < words.Length; i++)
             {
                 string key = words[i];
                 int j = i - 1;
 
-                while (j >= 0 && CompareWords(words[j], key)) //  words[j][0] > key[0]
+                while (j >= 0 && CompareWords(words[j], key))
                 {
                     words[j + 1] = words[j];
                     j--;
@@ -77,13 +112,16 @@ class Class1
                 words[j + 1] = key;
             }
 
-            Console.WriteLine();
-            Console.WriteLine();
+            sr.Close();
+
+            StreamWriter sw = new StreamWriter(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\SortedText3.txt");
 
             foreach (string word in words)
             {
-                Console.WriteLine(word);
+                sw.WriteLine(word);
             }
+
+            sw.Close();
         }
         catch (Exception e)
         {
