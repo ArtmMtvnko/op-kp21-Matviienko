@@ -5,6 +5,32 @@ using System.Text;
 
 class Class1
 {
+    static bool CompareWords(string word1, string word2)
+    {
+        int size;
+        if (word1.Length < word2.Length)
+        {
+            size = word1.Length;
+        }
+        else
+        {
+            size = word2.Length;
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            if (word1[i] < word2[i])
+            {
+                return false;
+            }
+            else if (word1[i] > word2[i])
+            {
+                return true;
+            }
+        }
+        return word1.Length >= word2.Length;
+    }
+
     static void Main(string[] args)
     {
         // Read the lines
@@ -15,7 +41,7 @@ class Class1
         string line;
         try
         {
-            StreamReader sr = new StreamReader(@"D:\Git\Progects\Sem_2_lab_1\Task3\Text3.txt");
+            StreamReader sr = new StreamReader(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\Text3.txt");
 
             string[] words = new string[40];
 
@@ -42,7 +68,7 @@ class Class1
                 string key = words[i];
                 int j = i - 1;
 
-                while (j >= 0 && words[j][0] > key[0])
+                while (j >= 0 && CompareWords(words[j], key)) //  words[j][0] > key[0]
                 {
                     words[j + 1] = words[j];
                     j--;
