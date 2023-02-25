@@ -82,7 +82,7 @@ class Class1
         string line;
         try
         {
-            StreamReader sr = new StreamReader(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\Text3.txt");
+            StreamReader sr = new StreamReader(@"D:\Git\Progects\Sem_2_lab_1\Task3\Text3.txt");
 
             string[] words = new string[40];
 
@@ -114,7 +114,7 @@ class Class1
 
             sr.Close();
 
-            StreamWriter sw = new StreamWriter(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\SortedText3.txt");
+            StreamWriter sw = new StreamWriter(@"D:\Git\Progects\Sem_2_lab_1\Task3\SortedText3.txt");
 
             foreach (string word in words)
             {
