@@ -22,7 +22,7 @@ class Class1
 
             sw.Close();
 
-            StreamReader sr = new StreamReader(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_lab_1\OP_Sem_2_lab_1\Text1.txt");
+            StreamReader sr = new StreamReader(@"D:\Git\Progects\Sem_2_lab_1\Task1\Text1.txt");
 
             line = sr.ReadLine();
 
