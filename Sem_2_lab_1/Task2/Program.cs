@@ -31,8 +31,6 @@ class Class1
 
             line = sr.ReadLine();
 
-            Console.WriteLine(line.GetTypeCode());
-
             int num = 0;
             string numStr = "";
 
