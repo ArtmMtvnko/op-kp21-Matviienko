@@ -16,7 +16,7 @@ class Class1
         string line;
         try
         {
-            StreamReader sr = new StreamReader(@"D:\Git\Progects\Sem_2_lab_1\Task4\Text4.txt\Text4.csv\Text5.txt");
+            StreamReader sr = new StreamReader(@"D:\Git\Progects\Sem_2_lab_1\Task6\Text6.csv");
         }
         catch (Exception e)
         {
