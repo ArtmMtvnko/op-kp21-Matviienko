@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.IO;
 
 namespace OP_Sem_2_Lab_2
 {
@@ -17,13 +18,39 @@ namespace OP_Sem_2_Lab_2
             // Для коректного відображення текста Кирилицею
             Console.OutputEncoding = Encoding.UTF8;
 
-            ConsoleInterface menu = new ConsoleInterface();
+            ConsoleInterface mainMenu = new ConsoleInterface();
 
-            menu.PrintMenuItem("1. Додати людину");
-            menu.PrintMenuItem("2. Видалити людину");
-            menu.PrintMenuItem("3. Змінити параметри");
+            while (true)
+            {
+                mainMenu.MenuLength = 0;
+                mainMenu.PrintMenuItem("1. Додати людину");
+                mainMenu.PrintMenuItem("2. Видалити людину");
+                mainMenu.PrintMenuItem("3. Змінити параметри");
 
-            menu.CheckInput();
+                int menuNumber = mainMenu.GetCheckedInput();
+
+                switch (menuNumber)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("Вкажіть прізвище");
+                        string name = Console.ReadLine().Replace(" ", "").Trim();
+
+                        WriterName lastName = new WriterName(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_Lab_2\OP_Sem_2_Lab_2\table.csv");
+                        lastName.Input(name);
+
+                        Console.Clear();
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
 
             Console.WriteLine("out of range");
         }
@@ -33,13 +60,19 @@ namespace OP_Sem_2_Lab_2
     {
         private int _menuLength = 0;
 
+        public int MenuLength
+        {
+            get { return _menuLength; }
+            set { _menuLength = value; }
+        }
+
         public void PrintMenuItem(string str)
         {
             Console.WriteLine(str);
             _menuLength++;
         }
 
-        public void CheckInput()
+        public int GetCheckedInput()
         {
             while (true)
             {
@@ -51,12 +84,40 @@ namespace OP_Sem_2_Lab_2
                         Console.WriteLine($"Error input, enter correctly value 1-{_menuLength}:");
                         continue;
                     }
-                    break;
+                    return num;
                 }
                 catch
                 {
                     Console.WriteLine("Invalid input");
                 }
+            }
+        }
+    }
+
+    abstract class Writer
+    {
+        protected string _path;
+        public abstract void Input(string massage);
+    }
+
+    class WriterName : Writer
+    {
+        public WriterName(string path)
+        {
+            _path = path;
+        }
+
+        public string Path
+        {
+            get { return _path; }
+            set { this._path = value; }
+        }
+
+        public override void Input(string massage)
+        {
+            using (StreamWriter sw = new StreamWriter(_path, true)) // true - означає, що ми не перезаписуємо файл, а відкриваємо і записуємо у кінець файла
+            {
+                sw.WriteLine(massage);
             }
         }
     }
