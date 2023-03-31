@@ -34,7 +34,8 @@ namespace OP_Sem_2_Lab_2
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Вкажіть прізвище");
-                        string name = Console.ReadLine().Replace(" ", "").Trim();
+                        // видаляємо зайві пробіли
+                        string name = Console.ReadLine().Replace(" ", "");
 
                         WriterName lastName = new WriterName(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_Lab_2\OP_Sem_2_Lab_2\table.csv");
                         lastName.Input(name);
@@ -42,6 +43,17 @@ namespace OP_Sem_2_Lab_2
                         Console.Clear();
                         break;
                     case 2:
+                        Console.Clear();
+                        Console.WriteLine("Вкажіть рядок, який ви бажаєте видалити");
+                        int deleteLineNumber = Int32.Parse(Console.ReadLine().Replace(" ", ""));
+
+                        DeleteLine deleteLine = new DeleteLine(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_Lab_2\OP_Sem_2_Lab_2\table.csv");
+                        deleteLine.Delete(deleteLineNumber);
+
+                        // !!!!! _menuLength, об'єднати класси видалення і запису
+                        // аби _menuLength змінювався, і зробити перевірку на вравильність введення
+
+                        // Console.Clear();
                         break;
                     case 3:
                         break;
@@ -107,17 +119,63 @@ namespace OP_Sem_2_Lab_2
             _path = path;
         }
 
+        // мб видалити проперті
         public string Path
         {
             get { return _path; }
-            set { this._path = value; }
+            set { _path = value; }
         }
 
         public override void Input(string massage)
         {
-            using (StreamWriter sw = new StreamWriter(_path, true)) // true - означає, що ми не перезаписуємо файл, а відкриваємо і записуємо у кінець файла
+            // true - означає, що ми не перезаписуємо файл, а відкриваємо і записуємо у кінець файла
+            using (StreamWriter sw = new StreamWriter(_path, true))
             {
                 sw.WriteLine(massage);
+                sw.Close(); // Flush()
+            }
+        }
+    }
+
+    abstract class Deleter
+    {
+        protected string _path;
+        public abstract void Delete(int NumberOfline);
+    }
+
+    class DeleteLine : Deleter
+    {
+        public DeleteLine(string path)
+        {
+            _path = path;
+        }
+
+        public override void Delete(int NumberOfline)
+        {
+            List<string> lines = new List<string>();
+
+            // true - означає, що ми не перезаписуємо файл, а відкриваємо і записуємо у кінець файла
+            using (StreamReader sr = new StreamReader(_path, true))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                }
+
+                sr.Close(); // Flush()
+            }
+
+            lines.RemoveAt(NumberOfline - 1);
+
+            using (StreamWriter sw = new StreamWriter(_path))
+            {
+                foreach (string line in lines)
+                {
+                    sw.WriteLine(line);
+                }
+
+                sw.Close();
             }
         }
     }
