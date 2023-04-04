@@ -45,15 +45,13 @@ namespace OP_Sem_2_Lab_2
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Вкажіть рядок, який ви бажаєте видалити");
-                        int deleteLineNumber = Int32.Parse(Console.ReadLine().Replace(" ", ""));
 
                         DeleteLine deleteLine = new DeleteLine(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_Lab_2\OP_Sem_2_Lab_2\table.csv");
+
+                        int deleteLineNumber = deleteLine.GetLineNumber();
                         deleteLine.Delete(deleteLineNumber);
 
-                        // !!!!! _menuLength, об'єднати класси видалення і запису
-                        // аби _menuLength змінювався, і зробити перевірку на вравильність введення
-
-                        // Console.Clear();
+                        Console.Clear();
                         break;
                     case 3:
                         break;
@@ -150,7 +148,7 @@ namespace OP_Sem_2_Lab_2
             _path = path;
         }
 
-        public override void Delete(int NumberOfline)
+        public override void Delete(int NumberOfLine)
         {
             List<string> lines = new List<string>();
 
@@ -166,7 +164,7 @@ namespace OP_Sem_2_Lab_2
                 sr.Close(); // Flush()
             }
 
-            lines.RemoveAt(NumberOfline - 1);
+            lines.RemoveAt(NumberOfLine - 1);
 
             using (StreamWriter sw = new StreamWriter(_path))
             {
@@ -177,6 +175,40 @@ namespace OP_Sem_2_Lab_2
 
                 sw.Close();
             }
+        }
+
+        public int GetLineNumber()
+        {
+            int tableLength = 0;
+            using (StreamReader sr = new StreamReader(_path))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    tableLength++;
+                }
+            }
+            int deleteLineNumber;
+            while (true)
+            {
+                try
+                {
+                    deleteLineNumber = Int32.Parse(Console.ReadLine().Replace(" ", ""));
+                    if (deleteLineNumber > tableLength || deleteLineNumber < 1)
+                    {
+                        Console.WriteLine($"Error input, enter correctly value 1-{tableLength}:");
+                        continue;
+                    }
+                    break;
+                }
+                catch
+                {
+                    Console.WriteLine($"Error input");
+                }
+            }
+
+            return deleteLineNumber;
+
         }
     }
 }
