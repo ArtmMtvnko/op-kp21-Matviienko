@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.IO;
+using System.ComponentModel.Design;
 
 namespace OP_Sem_2_Lab_2
 {
@@ -8,6 +9,21 @@ namespace OP_Sem_2_Lab_2
     {
         static void Main(string[] args)
         {
+            Person a = new Person("loh", 100, 30);
+            Person b = new Person("Ivan", 1050, 10);
+            Person c = new Person("Andrei", 1900, 1000);
+
+            Editor editor = new Editor();
+            editor.AddItem(a);
+            editor.AddItem(b);
+            editor.AddItem(c);
+            editor.AddItem("Molli", 0, 0);
+
+            editor.ShowItems();
+
+            editor.DeleteItem("loh");
+            editor.ShowItems();
+
             /*  
              *  Створити класс для виведення інтерфейту у консоль
              *  Записати результати таблиці у .csv файл
@@ -25,7 +41,7 @@ namespace OP_Sem_2_Lab_2
                 mainMenu.MenuLength = 0;
                 mainMenu.PrintMenuItem("1. Додати людину");
                 mainMenu.PrintMenuItem("2. Видалити людину");
-                mainMenu.PrintMenuItem("3. Змінити параметри");
+                mainMenu.PrintMenuItem("3. Записати зміни");
 
                 int menuNumber = mainMenu.GetCheckedInput();
 
@@ -64,6 +80,67 @@ namespace OP_Sem_2_Lab_2
 
             Console.WriteLine("out of range");
         }
+    }
+
+    class Person
+    {
+        private string _name;
+        private int _salary;
+        private int _holdedSalary;
+        private int _getedSalary;
+
+        public Person(string name, int salary, int holdedSalary)
+        {
+            _name = name;
+            _salary = salary;
+            _holdedSalary = holdedSalary;
+            _getedSalary = salary - holdedSalary;
+        }
+
+        public override string ToString()
+        {
+            return $"{_name},{_salary},{_holdedSalary},{_getedSalary}";
+        }
+    }
+
+    class Editor
+    {
+        protected List<string> lines = new List<string>();
+
+        public void AddItem(Person person)
+        {
+            lines.Add(person.ToString());
+        }
+
+        public void AddItem(string name = "undefined", int salary = 0, int holdedSalary = 0)
+        {
+            lines.Add(new Person(name, salary, holdedSalary).ToString());
+        }
+
+        public void DeleteItem(int numberOfLine)
+        {
+            lines.RemoveAt(--numberOfLine);
+        }
+
+        public void DeleteItem(string name)
+        {
+            foreach (string line in lines)
+            {
+                if (line.Split(',')[0] != name) continue;
+                lines.Remove(line);
+                break;
+            }
+        }
+
+        public void ShowItems()
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                Console.WriteLine($"{i + 1},{lines[i]}");
+            }
+        }
+
+
     }
 
     class ConsoleInterface
