@@ -27,7 +27,7 @@ namespace OP_Sem_2_Lab_2
 
             while (true)
             {
-                mainMenu.MenuLength = 0;
+                mainMenu.ResetLength();
                 mainMenu.PrintMenuItem("1. Додати людину");
                 mainMenu.PrintMenuItem("2. Видалити людину");
                 mainMenu.PrintMenuItem("3. Зберегти зміни");
@@ -44,10 +44,24 @@ namespace OP_Sem_2_Lab_2
                         string name = Console.ReadLine().Replace(" ", ""); // видаляємо зайві пробіли
 
                         Console.WriteLine("Вкажіть заробітню платню");
-                        int salary = Int32.Parse(Console.ReadLine().Replace(" ", ""));
+                        int salary;
+                        bool salaryCheck = int.TryParse(Console.ReadLine().Replace(" ", ""), out salary);
+                        if (!salaryCheck || salary < 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Wrong input");
+                            continue;
+                        }
 
                         Console.WriteLine("Вкажіть утриману з/п");
-                        int holdedSalary = Int32.Parse(Console.ReadLine().Replace(" ", ""));
+                        int holdedSalary;
+                        bool holdedSalaryCheck = int.TryParse(Console.ReadLine().Replace(" ", ""), out holdedSalary);
+                        if (!holdedSalaryCheck || salary < 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Wrong input");
+                            continue;
+                        }
 
                         editor.AddItem(new Person(name, salary, holdedSalary));
 
@@ -57,9 +71,17 @@ namespace OP_Sem_2_Lab_2
                         Console.Clear();
 
                         Console.WriteLine("Вкажіть рядок, який ви бажаєте видалити");
-                        int deleteNumber = Int32.Parse(Console.ReadLine().Replace(" ", ""));
 
-                        editor.DeleteItem(deleteNumber);
+                        var deleteID = Console.ReadLine().Replace(" ", "");
+                        int deleteNumber;
+                        if (int.TryParse(deleteID, out deleteNumber))
+                        {
+                            editor.DeleteItem(deleteNumber);
+                        }
+                        else
+                        {
+                            editor.DeleteItem(deleteID);
+                        }
 
                         Console.Clear();
                         break;
@@ -176,12 +198,16 @@ namespace OP_Sem_2_Lab_2
 
     class ConsoleInterface
     {
-        private int _menuLength = 0;
+        private int _menuLength;
 
-        public int MenuLength
+        public ConsoleInterface()
         {
-            get { return _menuLength; }
-            set { _menuLength = value; }
+            _menuLength = 0;
+        }
+
+        public void ResetLength()
+        {
+            _menuLength = 0;
         }
 
         public void PrintMenuItem(string str)
