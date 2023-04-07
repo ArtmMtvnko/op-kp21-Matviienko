@@ -4,7 +4,7 @@ using System.IO;
 using System.ComponentModel.Design;
 using System.Linq;
 
-namespace OP_Sem_2_Lab_2
+namespace Task1
 {
     class Program
     {
