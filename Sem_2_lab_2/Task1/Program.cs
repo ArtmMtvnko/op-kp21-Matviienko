@@ -103,19 +103,19 @@ namespace Task1
         private string _name;
         private int _salary;
         private int _holdedSalary;
-        private int _getedSalary;
+        private int _gottenSalary;
 
         public Person(string name, int salary, int holdedSalary)
         {
             _name = name;
             _salary = salary;
             _holdedSalary = holdedSalary;
-            _getedSalary = salary - holdedSalary;
+            _gottenSalary = salary - holdedSalary;
         }
 
         public override string ToString()
         {
-            return $"{_name},{_salary},{_holdedSalary},{_getedSalary}";
+            return $"{_name},{_salary},{_holdedSalary},{_gottenSalary}";
         }
     }
 
