@@ -8,10 +8,13 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            IVessel a = new SailingVesse();
-            IVessel b = new Submarine();
+            IVessel sailingVessel = new SailingVessel();
+            IVessel submarine = new Submarine();
 
             ConsoleInterface menu = new ConsoleInterface();
+
+            bool isSalingVesselPrepared = false;
+            bool isSubmarinePrepared = false;
 
             while (true)
             {
@@ -21,40 +24,83 @@ namespace Task2
                 Console.WriteLine(menu.SetMenuItem("1. Sailing Vessel"));
                 Console.WriteLine(menu.SetMenuItem("2. Submarine"));
 
-                string mainMenuInput = Console.ReadLine();
-
-                if (!menu.IsInputValid(mainMenuInput)) continue;
-
-                int mainMenuNumber = Int32.Parse(mainMenuInput);
+                int mainMenuNumber = menu.GetCheckedInput();
 
                 switch (mainMenuNumber)
                 {
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Your have chosen Sailing Vessel!:");
+
                         menu.Reset();
+
+                        if (isSalingVesselPrepared) Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(menu.SetMenuItem("1. Prepare to move"));
+                        Console.ResetColor();
                         Console.WriteLine(menu.SetMenuItem("2. Move"));
 
-                        string SelingVesselInput = Console.ReadLine();
+                        int selingVesselMenuNumber = menu.GetCheckedInput();
 
-                        if (!menu.IsInputValid(SelingVesselInput)) continue;
+                        if (selingVesselMenuNumber == 1)
+                        {
+                            isSalingVesselPrepared = true;
+                            Console.Clear();
+                            Console.WriteLine(sailingVessel.PrepareToMovement());
+                            Thread.Sleep(3000);
+                        }
 
-                        int SelingVesselMenuNamber = Int32.Parse(SelingVesselInput);
+                        if (!isSalingVesselPrepared)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are not prepare!");
+                            Thread.Sleep(3000);
+                            break;
+                        }
+
+                        if (selingVesselMenuNumber == 2)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(sailingVessel.Move());
+                            Thread.Sleep(3000);
+                        }
 
                         break;
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Your have chosen Submarine!:");
+
                         menu.Reset();
+
+                        if (isSubmarinePrepared) Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(menu.SetMenuItem("1. Prepare to move"));
+                        Console.ResetColor();
                         Console.WriteLine(menu.SetMenuItem("2. Move"));
 
-                        string SubmarineInput = Console.ReadLine();
+                        int submarineMainMenuNumber = menu.GetCheckedInput();
 
-                        if (!menu.IsInputValid(SubmarineInput)) continue;
+                        if (submarineMainMenuNumber == 1)
+                        {
+                            isSubmarinePrepared = true;
+                            Console.Clear();
+                            Console.WriteLine(submarine.PrepareToMovement());
+                            Thread.Sleep(3000);
+                        }
 
-                        int SubmarineMenuNamber = Int32.Parse(SubmarineInput);
+                        if (!isSubmarinePrepared)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are not prepare!");
+                            Thread.Sleep(3000);
+                            break;
+                        }
+
+                        if (submarineMainMenuNumber == 2)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(submarine.Move());
+                            Thread.Sleep(3000);
+                        }
+
                         break;
                 }
             }
@@ -68,7 +114,7 @@ namespace Task2
         string Move();
     }
 
-    class SailingVesse : IVessel
+    class SailingVessel : IVessel
     {
         public string PrepareToMovement()
         {
@@ -114,16 +160,28 @@ namespace Task2
             return message;
         }
 
-        public bool IsInputValid(string input)
+        private bool IsInputValid(string input)
         {
             int number;
             bool isNumber = int.TryParse(input, out number);
 
-            if (!isNumber) return isNumber;
+            if (!isNumber) return false;
 
             if (number < 0 || number > _menuLength) return false;
 
-            return isNumber;
+            return true;
+        }
+
+        public int GetCheckedInput()
+        {
+            while (true)
+            {
+                string input = Console.ReadLine().Replace(" ", "");
+
+                if (!IsInputValid(input)) continue;
+
+                return Int32.Parse(input);
+            }
         }
     }
 }
