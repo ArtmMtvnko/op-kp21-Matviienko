@@ -39,6 +39,39 @@ namespace Task3
 
                 break;
             }
+
+            while (true)
+            {
+                Console.Clear();
+
+                Console.WriteLine(menu.SetMenuItem("1. Сума від’ємних елементів двох \"векторів\"."));
+                Console.WriteLine(menu.SetMenuItem("2. Добуток елементів двох \"векторів\" із парними номерами."));
+                Console.WriteLine(menu.SetMenuItem("3. Кількість елементів двох \"векторів\", рівних 0."));
+
+                int menuNumber = menu.GetCheckedInput();
+
+                switch (menuNumber)
+                {
+                    case 1:
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Відповідь: {a + b}");
+                        Console.ResetColor();
+                        Thread.Sleep(5000);
+                        break;
+                    case 2:
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Відповідь: {a * b}");
+                        Console.ResetColor();
+                        Thread.Sleep(5000);
+                        break;
+                    case 3:
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Відповідь: {a / b}");
+                        Console.ResetColor();
+                        Thread.Sleep(5000);
+                        break;
+                }
+            }
         }
     }
 
@@ -61,7 +94,7 @@ namespace Task3
 
             for (int i = 0; i < b._coordinates.Length; i++)
             {
-                if (b._coordinates[i] < 0) summaryNumbers += a._coordinates[i];
+                if (b._coordinates[i] < 0) summaryNumbers += b._coordinates[i];
             }
 
             return summaryNumbers;
@@ -150,6 +183,30 @@ namespace Task3
             foreach (int num in array)
             {
                 Console.Write(num + " ");
+            }
+        }
+
+        private bool IsInputValid(string input)
+        {
+            int number;
+            bool isNumber = int.TryParse(input, out number);
+
+            if (!isNumber) return false;
+
+            if (number < 0 || number > _menuLength) return false;
+
+            return true;
+        }
+
+        public int GetCheckedInput()
+        {
+            while (true)
+            {
+                string input = Console.ReadLine().Replace(" ", "");
+
+                if (!IsInputValid(input)) continue;
+
+                return Int32.Parse(input);
             }
         }
     }
