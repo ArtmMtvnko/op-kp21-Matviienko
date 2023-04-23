@@ -10,7 +10,6 @@ namespace Task3
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            int[] aa = { 1, 2, 3, 4, 4, 0 };
             Vector a;
             Vector b;
 
@@ -44,6 +43,9 @@ namespace Task3
             {
                 Console.Clear();
 
+                Console.WriteLine(a.ToString());
+                Console.WriteLine(b.ToString());
+
                 Console.WriteLine(menu.SetMenuItem("1. Сума від’ємних елементів двох \"векторів\"."));
                 Console.WriteLine(menu.SetMenuItem("2. Добуток елементів двох \"векторів\" із парними номерами."));
                 Console.WriteLine(menu.SetMenuItem("3. Кількість елементів двох \"векторів\", рівних 0."));
@@ -56,19 +58,19 @@ namespace Task3
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Відповідь: {a + b}");
                         Console.ResetColor();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3500);
                         break;
                     case 2:
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Відповідь: {a * b}");
                         Console.ResetColor();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3500);
                         break;
                     case 3:
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Відповідь: {a / b}");
                         Console.ResetColor();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3500);
                         break;
                 }
             }

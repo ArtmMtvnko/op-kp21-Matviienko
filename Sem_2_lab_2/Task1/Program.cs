@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Text;
 using System.IO;
 using System.ComponentModel.Design;
@@ -11,13 +11,13 @@ namespace Task1
         static void Main(string[] args)
         {
             /*  
-             *  Створити класс для виведення інтерфейту у консоль
-             *  Записати результати таблиці у .csv файл
-             *  Надати доступ до таблиці через .csv файл
+             *  РЎС‚РІРѕСЂРёС‚Рё РєР»Р°СЃСЃ РґР»СЏ РІРёРІРµРґРµРЅРЅСЏ С–РЅС‚РµСЂС„РµР№С‚Сѓ Сѓ РєРѕРЅСЃРѕР»СЊ
+             *  Р—Р°РїРёСЃР°С‚Рё СЂРµР·СѓР»СЊС‚Р°С‚Рё С‚Р°Р±Р»РёС†С– Сѓ .csv С„Р°Р№Р»
+             *  РќР°РґР°С‚Рё РґРѕСЃС‚СѓРї РґРѕ С‚Р°Р±Р»РёС†С– С‡РµСЂРµР· .csv С„Р°Р№Р»
              *  
              */
 
-            // Для коректного відображення текста Кирилицею
+            // Р”Р»СЏ РєРѕСЂРµРєС‚РЅРѕРіРѕ РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ С‚РµРєСЃС‚Р° РљРёСЂРёР»РёС†РµСЋ
             Console.OutputEncoding = Encoding.UTF8;
 
             Editor editor = new Editor(@"D:\Microsoft Visual Studio\Projects\OP_Sem_2_Lab_2\OP_Sem_2_Lab_2\table.csv");
@@ -28,9 +28,9 @@ namespace Task1
             while (true)
             {
                 mainMenu.ResetLength();
-                mainMenu.PrintMenuItem("1. Додати людину");
-                mainMenu.PrintMenuItem("2. Видалити людину");
-                mainMenu.PrintMenuItem("3. Зберегти зміни");
+                mainMenu.PrintMenuItem("1. Р”РѕРґР°С‚Рё Р»СЋРґРёРЅСѓ");
+                mainMenu.PrintMenuItem("2. Р’РёРґР°Р»РёС‚Рё Р»СЋРґРёРЅСѓ");
+                mainMenu.PrintMenuItem("3. Р—Р±РµСЂРµРіС‚Рё Р·РјС–РЅРё");
 
                 editor.ShowItems();
 
@@ -40,12 +40,12 @@ namespace Task1
                 {
                     case 1:
                         Console.Clear();
-                        Console.WriteLine("Вкажіть прізвище");
-                        string name = Console.ReadLine().Replace(" ", ""); // видаляємо зайві пробіли
+                        Console.WriteLine("Р’РєР°Р¶С–С‚СЊ РїСЂС–Р·РІРёС‰Рµ");
+                        string name = Console.ReadLine().Replace(" ", ""); // РІРёРґР°Р»СЏС”РјРѕ Р·Р°Р№РІС– РїСЂРѕР±С–Р»Рё
 
-                        Console.WriteLine("Вкажіть заробітню платню");
+                        Console.WriteLine("Р’РєР°Р¶С–С‚СЊ Р·Р°СЂРѕР±С–С‚РЅСЋ РїР»Р°С‚РЅСЋ");
                         int salary;
-                        bool salaryCheck = int.TryParse(Console.ReadLine().Replace(" ", ""), out salary);
+                        bool salaryCheck = int.TryParse( Console.ReadLine().Replace(" ", ""), out salary);
                         if (!salaryCheck || salary < 0)
                         {
                             Console.Clear();
@@ -53,9 +53,9 @@ namespace Task1
                             continue;
                         }
 
-                        Console.WriteLine("Вкажіть утриману з/п");
+                        Console.WriteLine("Р’РєР°Р¶С–С‚СЊ СѓС‚СЂРёРјР°РЅСѓ Р·/Рї");
                         int holdedSalary;
-                        bool holdedSalaryCheck = int.TryParse(Console.ReadLine().Replace(" ", ""), out holdedSalary);
+                        bool holdedSalaryCheck = int.TryParse( Console.ReadLine().Replace(" ", ""), out holdedSalary );
                         if (!holdedSalaryCheck || salary < 0)
                         {
                             Console.Clear();
@@ -70,7 +70,7 @@ namespace Task1
                     case 2:
                         Console.Clear();
 
-                        Console.WriteLine("Вкажіть рядок, який ви бажаєте видалити");
+                        Console.WriteLine("Р’РєР°Р¶С–С‚СЊ СЂСЏРґРѕРє, СЏРєРёР№ РІРё Р±Р°Р¶Р°С”С‚Рµ РІРёРґР°Р»РёС‚Рё Р°Р±Рѕ С–Рј'СЏ");
 
                         var deleteID = Console.ReadLine().Replace(" ", "");
                         int deleteNumber;
@@ -87,7 +87,7 @@ namespace Task1
                         break;
                     case 3:
                         Console.Clear();
-                        Console.WriteLine("У цьому немає потреби, файли автоматично зберігаються у файл ;)");
+                        Console.WriteLine("РЈ С†СЊРѕРјСѓ РЅРµРјР°С” РїРѕС‚СЂРµР±Рё, С„Р°Р№Р»Рё Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ Р·Р±РµСЂС–РіР°СЋС‚СЊСЃСЏ Сѓ С„Р°Р№Р» ;)");
                         break;
                 }
 
@@ -174,7 +174,7 @@ namespace Task1
             using (StreamReader sr = new StreamReader(_path))
             {
                 string line;
-                while ((line = sr.ReadLine()) != null)
+                while ( (line = sr.ReadLine()) != null )
                 {
                     string[] parts = line.Split(',');
                     string result = string.Join(',', parts.Skip(1)); // String.Join(); s(S)
@@ -193,7 +193,7 @@ namespace Task1
             Console.ResetColor();
         }
 
-
+        
     }
 
     class ConsoleInterface
