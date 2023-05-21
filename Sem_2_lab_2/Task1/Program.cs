@@ -44,8 +44,8 @@ namespace Task1
                         string name = Console.ReadLine().Replace(" ", ""); // видаляємо зайві пробіли
 
                         Console.WriteLine("Вкажіть заробітню платню");
-                        int salary;
-                        bool salaryCheck = int.TryParse( Console.ReadLine().Replace(" ", ""), out salary);
+                        double salary;
+                        bool salaryCheck = double.TryParse( Console.ReadLine().Replace(" ", ""), out salary);
                         if (!salaryCheck || salary < 0)
                         {
                             Console.Clear();
@@ -54,8 +54,8 @@ namespace Task1
                         }
 
                         Console.WriteLine("Вкажіть утриману з/п");
-                        int holdedSalary;
-                        bool holdedSalaryCheck = int.TryParse( Console.ReadLine().Replace(" ", ""), out holdedSalary );
+                        double holdedSalary;
+                        bool holdedSalaryCheck = double.TryParse( Console.ReadLine().Replace(" ", ""), out holdedSalary );
                         if (!holdedSalaryCheck || salary < 0)
                         {
                             Console.Clear();
@@ -101,11 +101,11 @@ namespace Task1
     class Person
     {
         private string _name;
-        private int _salary;
-        private int _holdedSalary;
-        private int _gottenSalary;
+        private double _salary;
+        private double _holdedSalary;
+        private double _gottenSalary;
 
-        public Person(string name, int salary, int holdedSalary)
+        public Person(string name, double salary, double holdedSalary)
         {
             _name = name;
             _salary = salary;
@@ -115,7 +115,7 @@ namespace Task1
 
         public override string ToString()
         {
-            return $"{_name},{_salary},{_holdedSalary},{_gottenSalary}";
+            return $"{_name} ; {_salary} ; {_holdedSalary} ; {_gottenSalary}";
         }
     }
 
@@ -135,9 +135,26 @@ namespace Task1
             {
                 for (int i = 0; i < lines.Count; i++)
                 {
-                    sw.WriteLine($"{i + 1},{lines[i]}");
+                    sw.WriteLine($"{i + 1};{lines[i]}");
                 }
             }
+        }
+
+        private string CalculateSum()
+        {
+            double sumSalary = 0;
+            double sumHoldedSalary = 0;
+            double sumResultSalary = 0;
+
+            foreach (var line in lines)
+            {
+                line.Replace(" ", "");
+                sumSalary += double.Parse(line.Split(';')[1]);
+                sumHoldedSalary += double.Parse(line.Split(';')[2]);
+                sumResultSalary += double.Parse(line.Split(';')[3]);
+            }
+
+            return $"SUM ; {Math.Round(sumSalary, 2)} ; {Math.Round(sumHoldedSalary, 2)} ; {Math.Round(sumResultSalary, 2)}"; 
         }
 
         public void AddItem(Person person)
@@ -146,7 +163,7 @@ namespace Task1
             WriteChangesToFile();
         }
 
-        public void AddItem(string name = "undefined", int salary = 0, int holdedSalary = 0)
+        public void AddItem(string name = "undefined", double salary = 0, double holdedSalary = 0)
         {
             lines.Add(new Person(name, salary, holdedSalary).ToString());
             WriteChangesToFile();
@@ -160,9 +177,10 @@ namespace Task1
 
         public void DeleteItem(string name)
         {
+            name = name + " ";
             foreach (string line in lines)
             {
-                if (line.Split(',')[0] != name) continue;
+                if (line.Split(';')[0] != name) continue;
                 lines.Remove(line);
                 break;
             }
@@ -176,8 +194,8 @@ namespace Task1
                 string line;
                 while ( (line = sr.ReadLine()) != null )
                 {
-                    string[] parts = line.Split(',');
-                    string result = string.Join(',', parts.Skip(1)); // String.Join(); s(S)
+                    string[] parts = line.Split(';');
+                    string result = string.Join(';', parts.Skip(1)); // String.Join(); s(S)
                     lines.Add(result);
                 }
             }
@@ -188,8 +206,11 @@ namespace Task1
             Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < lines.Count; i++)
             {
-                Console.WriteLine($"{i + 1},{lines[i]}");
+                Console.WriteLine($"{i + 1} ; {lines[i]}");
             }
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(CalculateSum());
             Console.ResetColor();
         }
 

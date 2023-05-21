@@ -21,9 +21,9 @@ namespace Task2
                 Console.Clear();
                 Console.WriteLine("Choose your vessel:");
                 menu.Reset();
-                Console.WriteLine(menu.SetMenuItem("1. Sailing Vessel"));
-                Console.WriteLine(menu.SetMenuItem("2. Submarine"));
-
+                Console.WriteLine( menu.SetMenuItem("1. Sailing Vessel") );
+                Console.WriteLine( menu.SetMenuItem("2. Submarine") );
+                
                 int mainMenuNumber = menu.GetCheckedInput();
 
                 switch (mainMenuNumber)
@@ -112,6 +112,13 @@ namespace Task2
         string PrepareToMovement();
 
         string Move();
+    }
+
+    abstract class Vessel
+    {
+        abstract public string PrepareToMovement();
+
+        abstract public string Move();
     }
 
     class SailingVessel : IVessel
