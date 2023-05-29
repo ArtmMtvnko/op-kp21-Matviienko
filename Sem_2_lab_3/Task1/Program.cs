@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OP_Sem_2_Lab_3
 {
@@ -17,55 +18,84 @@ namespace OP_Sem_2_Lab_3
 
             Console.WriteLine(deque.IsEmpty());
             Console.WriteLine(deque.Size());
+
+            deque.Iterator();
         }
     }
 
-    class Deque<T>
+    class Deque<T> : IIterable<T>
     {
-        LinkedList<T> list;
+        private LinkedList<T> _list;
 
-        public Deque() => list = new LinkedList<T>();
+        public Deque() => _list = new LinkedList<T>();
 
         public void AddFirst(T item)
         {
-            list.AddFirst(item);
+            _list.AddFirst(item);
         }
 
         public void AddLast(T item)
         {
-            list.AddLast(item);
+            _list.AddLast(item);
         }
 
         public void RemoveFirst()
         {
-            list.RemoveFirst();
+            _list.RemoveFirst();
         }
 
         public void RemoveLast()
         {
-            list.RemoveLast();
+            _list.RemoveLast();
         }
 
         public int Size()
         {
-            return list.Count;
+            return _list.Count;
         }
 
         public bool IsEmpty()
         {
-            return list.First == null ? true : false;
+            return _list.First == null ? true : false;
+        }
+
+        public void Iterator()
+        {
+            IteratorImpl iterator = new IteratorImpl(_list);
+
+            while (iterator.HasNext)
+            {
+                Console.WriteLine(iterator.MoveNext());
+            }
         }
 
         private class IteratorImpl : IIterator<T>
         {
+            private LinkedListNode<T> _currentNode;
 
-            bool HasNext { get; }
+            public IteratorImpl(LinkedList<T> list)
+            {
+                _currentNode = list.First;
+            }
 
-            bool IIterator<T>.HasNext => throw new NotImplementedException();
+            public bool HasNext { get; set; } = true;
+
+            //bool IIterator<T>.HasNext => throw new NotImplementedException();
 
             public T MoveNext()
             {
-                return default(T);
+                T result = _currentNode.Value;
+
+                if (_currentNode.Next == null)
+                {
+                    HasNext = false;
+                }
+                else
+                {
+                    _currentNode = _currentNode.Next;
+                }
+
+                return result;
             }
         }
 
@@ -73,7 +103,7 @@ namespace OP_Sem_2_Lab_3
 
     interface IIterable<T>
     {
-        public IIterator<T> Iterator();
+        public void Iterator();
     }
 
     interface IIterator<T>
