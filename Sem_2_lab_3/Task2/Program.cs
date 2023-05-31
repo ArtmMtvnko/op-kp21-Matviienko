@@ -20,12 +20,21 @@ namespace OP_Sem_2_Lab_3
             Console.WriteLine("Size of queue: " + queue.Size());
 
             queue.Iterator();
+
+            var DeletedItem = queue.Dequeue();
+            var ReturnetItem = queue.Sample();
+
+            Console.WriteLine("\nDeleted and returned item: " + DeletedItem);
+            Console.WriteLine("Only returned item: " + ReturnetItem + "\n");
+
+            queue.Iterator();
         }
     }
 
     class RandomizedQueue<T> : IIterable<T>
     {
         private LinkedList<T> _list;
+        private Random random = new Random();
 
         public RandomizedQueue() => _list = new LinkedList<T>();
 
@@ -36,12 +45,32 @@ namespace OP_Sem_2_Lab_3
 
         public T Dequeue()
         {
-            return default(T);
+            LinkedListNode<T> currentNode = _list.First;
+
+            int index = random.Next(1, _list.Count + 1);
+
+            for (int i = 1; i < index; i++)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            _list.Remove(currentNode);
+
+            return currentNode.Value;
         }
 
         public T Sample()
         {
-            return default(T);
+            LinkedListNode<T> currentNode = _list.First;
+
+            int index = random.Next(1, _list.Count + 1);
+
+            for (int i = 1; i < index; i++)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            return currentNode.Value;
         }
 
         public int Size()
