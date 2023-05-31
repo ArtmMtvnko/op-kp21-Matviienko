@@ -13,8 +13,8 @@ namespace OP_Sem_2_Lab_3
             Console.WriteLine("Queue size: " + deque.Size());
 
             deque.AddLast("test");
-            deque.AddLast("generic");
-            deque.AddLast("s t r i n g");
+            deque.AddFirst("generic");
+            deque.AddFirst("s t r i n g");
             deque.AddLast("asdaasdfasdfasdfasdfasdf");
             deque.AddLast("final");
 
