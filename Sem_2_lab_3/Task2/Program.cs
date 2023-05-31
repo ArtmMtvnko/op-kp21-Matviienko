@@ -12,9 +12,11 @@ namespace OP_Sem_2_Lab_3
             Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
             Console.WriteLine("Size of queue: " + queue.Size());
 
-            queue.Enqueue("test1");
-            queue.Enqueue("random");
-            queue.Enqueue("queue");
+            //queue.Enqueue("test1");
+            //queue.Enqueue("test2");
+            //queue.Enqueue("test3");
+            //queue.Enqueue("test4");
+            //queue.Enqueue("test5");
 
             Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
             Console.WriteLine("Size of queue: " + queue.Size());
@@ -43,9 +45,13 @@ namespace OP_Sem_2_Lab_3
             _list.AddFirst(item);
         }
 
+
         public T Dequeue()
         {
             LinkedListNode<T> currentNode = _list.First;
+
+            if (currentNode == null)
+                return default(T);
 
             int index = random.Next(1, _list.Count + 1);
 
@@ -62,6 +68,9 @@ namespace OP_Sem_2_Lab_3
         public T Sample()
         {
             LinkedListNode<T> currentNode = _list.First;
+
+            if (currentNode == null)
+                return default(T);
 
             int index = random.Next(1, _list.Count + 1);
 
@@ -83,8 +92,29 @@ namespace OP_Sem_2_Lab_3
             return _list.First == null ? true : false;
         }
 
+        private void ShuffleLinkedList<T>(LinkedList<T> list)
+        {
+            T[] array = list.ToArray();
+
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                T temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+
+            LinkedListNode<T> currentNode = list.First;
+            foreach (T item in array)
+            {
+                currentNode.Value = item;
+                currentNode = currentNode.Next;
+            }
+        }
+
         public void Iterator()
         {
+            ShuffleLinkedList(_list);
             IteratorImpl iterator = new IteratorImpl(_list);
 
             if (_list.Count == 0)
