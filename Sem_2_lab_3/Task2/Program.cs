@@ -12,11 +12,11 @@ namespace OP_Sem_2_Lab_3
             Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
             Console.WriteLine("Size of queue: " + queue.Size());
 
-            //queue.Enqueue("test1");
-            //queue.Enqueue("test2");
-            //queue.Enqueue("test3");
-            //queue.Enqueue("test4");
-            //queue.Enqueue("test5");
+            queue.Enqueue("test1");
+            queue.Enqueue("test2");
+            queue.Enqueue("test3");
+            queue.Enqueue("test4");
+            queue.Enqueue("test5");
 
             Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
             Console.WriteLine("Size of queue: " + queue.Size());
