@@ -7,7 +7,19 @@ namespace OP_Sem_2_Lab_3
     {
         static void Main(string[] args)
         {
-            
+            RandomizedQueue<string> queue = new RandomizedQueue<string>();
+
+            Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
+            Console.WriteLine("Size of queue: " + queue.Size());
+
+            queue.Enqueue("test1");
+            queue.Enqueue("random");
+            queue.Enqueue("queue");
+
+            Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
+            Console.WriteLine("Size of queue: " + queue.Size());
+
+            queue.Iterator();
         }
     }
 
