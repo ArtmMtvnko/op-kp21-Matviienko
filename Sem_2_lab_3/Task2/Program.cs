@@ -7,48 +7,29 @@ namespace OP_Sem_2_Lab_3
     {
         static void Main(string[] args)
         {
-            Deque<string> deque = new Deque<string>();
-
-            Console.WriteLine("Is Queue Empty? " + deque.IsEmpty());
-            Console.WriteLine("Queue size: " + deque.Size());
-
-            deque.AddLast("test");
-            deque.AddLast("generic");
-            deque.AddLast("s t r i n g");
-            deque.AddLast("asdaasdfasdfasdfasdfasdf");
-            deque.AddLast("final");
-
-            Console.WriteLine("Is Queue Empty? " + deque.IsEmpty());
-            Console.WriteLine("Queue size: " + deque.Size());
-
-            deque.Iterator();
+            
         }
     }
 
-    class Deque<T> : IIterable<T>
+    class RandomizedQueue<T> : IIterable<T>
     {
         private LinkedList<T> _list;
 
-        public Deque() => _list = new LinkedList<T>();
+        public RandomizedQueue() => _list = new LinkedList<T>();
 
-        public void AddFirst(T item)
+        public void Enqueue(T item)
         {
             _list.AddFirst(item);
         }
 
-        public void AddLast(T item)
+        public T Dequeue()
         {
-            _list.AddLast(item);
+            return default(T);
         }
 
-        public void RemoveFirst()
+        public T Sample()
         {
-            _list.RemoveFirst();
-        }
-
-        public void RemoveLast()
-        {
-            _list.RemoveLast();
+            return default(T);
         }
 
         public int Size()
