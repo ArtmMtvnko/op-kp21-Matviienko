@@ -1,0 +1,15 @@
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\bin\Debug\net6.0\File_Homework.exe
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\bin\Debug\net6.0\File_Homework.deps.json
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\bin\Debug\net6.0\File_Homework.runtimeconfig.json
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\bin\Debug\net6.0\File_Homework.dll
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\bin\Debug\net6.0\File_Homework.pdb
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.csproj.AssemblyReference.cache
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.GeneratedMSBuildEditorConfig.editorconfig
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.AssemblyInfoInputs.cache
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.AssemblyInfo.cs
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.csproj.CoreCompileInputs.cache
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.dll
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\refint\File_Homework.dll
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.pdb
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\File_Homework.genruntimeconfig.cache
+D:\Microsoft Visual Studio\Projects\File_Homework\File_Homework\obj\Debug\net6.0\ref\File_Homework.dll
